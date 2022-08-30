@@ -21,7 +21,6 @@ public class Spoofer implements IXposedHookLoadPackage {
 
     @Override
     public void handleLoadPackage(XC_LoadPackage.LoadPackageParam lpparam) throws Throwable {
-        Log.d("Sammy: ", "Lloaded");
         try {
             XposedBridge.hookAllMethods(XposedHelpers.findClass("android.os.SystemProperties", lpparam.classLoader),
                     "get", new XC_MethodHook() {
@@ -29,7 +28,6 @@ public class Spoofer implements IXposedHookLoadPackage {
                         protected void afterHookedMethod(MethodHookParam param) throws Throwable {
                             if (FAKE_VARS.containsKey(param.args[0].toString())) {
                                 param.setResult(FAKE_VARS.get(param.args[0].toString()));
-                                Log.d("Sammy:", "SysProps");
                             }
                         }
                     });
@@ -40,7 +38,6 @@ public class Spoofer implements IXposedHookLoadPackage {
                         protected void afterHookedMethod(MethodHookParam param) throws Throwable {
                             if (FAKE_VARS.containsKey(param.args[0].toString())) {
                                 param.setResult(FAKE_VARS.get(param.args[0].toString()));
-                                Log.d("Sammy:", "SysProps");
                             }
                         }
                     });
